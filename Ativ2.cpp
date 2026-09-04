@@ -1,3 +1,5 @@
+//Link do wokiw: https://wokwi.com/projects/473012545403901953
+
 #define Verm 10
 #define Amar 8
 
