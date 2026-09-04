@@ -1,5 +1,5 @@
 <div align="center">
-  <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&height=125&section=header&reversal=false&animation=blinking&color=000000" />
+  <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&height=125&section=header&reversal=false&animation=blinking&color=FFFFFF" />
 </div>
 
 # Internet das Coisas
@@ -83,5 +83,5 @@ Este repositório tem como objetivo:
 <p align="center">
   Desenvolvido durante a disciplina de <strong>Programação para Dispositivos Móveis</strong> 📱
 </p>
-  <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&height=125&section=footer&reversal=false&animation=blinking&color=000000" />
+  <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&height=125&section=footer&reversal=false&animation=blinking&color=FFFFFF" />
 </div>
