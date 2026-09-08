@@ -81,7 +81,7 @@ Este repositório tem como objetivo:
 ---
 
 <p align="center">
-  Desenvolvido durante a disciplina de <strong>Programação para Dispositivos Móveis</strong> 📱
+  Desenvolvido durante a disciplina de <strong>Internet das Coisas</strong> 📱
 </p>
   <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&height=125&section=footer&reversal=false&animation=blinking&color=FFFFFF" />
 </div>
