@@ -1,66 +1,85 @@
-//Link do wokiw: https://wokwi.com/projects/473014752084068353
+#include <Servo.h> 
 
-#define VermCar 1
-#define AmarCar 2
-#define VerdCar 3
+Servo servo; 
+  
+const int potPin = A0; 
+const int servoPin = 9; 
+  
+const int trigPin = 6; 
+const int echoPin = 7; 
+  
+const int ledVerde = 2; 
+const int ledAmarelo = 3; 
+const int ledVermelho = 4; 
+  
+const int buzzerPin = 5; 
+  
+const int distanciaCritica = 20; 
 
-#define VermPed 4
-#define VerdPed 5
+void setup() { 
+  Serial.begin(9600); 
+  
+  servo.attach(servoPin); 
+  servo.write(90); 
+  
+  pinMode(trigPin, OUTPUT); 
+  pinMode(echoPin, INPUT); 
+  
+  pinMode(ledVerde, OUTPUT); 
+  pinMode(ledAmarelo, OUTPUT); 
+  pinMode(ledVermelho, OUTPUT); 
+  
+  pinMode(buzzerPin, OUTPUT); 
+  
+  digitalWrite(ledVerde, LOW); 
+  digitalWrite(ledAmarelo, LOW); 
+  digitalWrite(ledVermelho, LOW); 
+  noTone(buzzerPin); 
+} 
 
-#define Buzzer 6
+void loop() { 
+  int valorPot = analogRead(potPin); 
+  int angulo = map(valorPot, 0, 1023, 0, 180); 
+  servo.write(angulo); 
 
-void setup() {
+  digitalWrite(trigPin, LOW); 
+  delayMicroseconds(2); 
+  digitalWrite(trigPin, HIGH); 
+  delayMicroseconds(10); 
+  digitalWrite(trigPin, LOW); 
 
-  pinMode(VermCar, OUTPUT);
-  pinMode(AmarCar, OUTPUT);
-  pinMode(VerdCar, OUTPUT);
-  pinMode(VerdPed, OUTPUT);
-  pinMode(VermPed, OUTPUT);
+  long duracao = pulseIn(echoPin, HIGH); 
+  int distancia = duracao * 0.034 / 2; 
 
-  pinMode(Buzzer, OUTPUT);
-}
+  if (distancia > 50 || distancia == 0) { 
+    digitalWrite(ledVerde, HIGH); 
+    digitalWrite(ledAmarelo, LOW); 
+    digitalWrite(ledVermelho, LOW); 
+    noTone(buzzerPin); 
+  } 
+  else if (distancia > distanciaCritica) { 
+    digitalWrite(ledVerde, LOW); 
+    digitalWrite(ledAmarelo, HIGH); 
+    digitalWrite(ledVermelho, LOW); 
+    noTone(buzzerPin); 
+  } 
+  else { 
+    digitalWrite(ledVerde, LOW); 
+    digitalWrite(ledAmarelo, LOW); 
+    digitalWrite(ledVermelho, HIGH); 
+    
+    tone(buzzerPin, 1000); 
+    delay(100);
+    noTone(buzzerPin);
+  } 
 
-void loop() {
+  Serial.print("Potenciometro: "); 
+  Serial.print(valorPot); 
+  Serial.print(" | Servo: "); 
+  Serial.print(angulo); 
+  Serial.print(" graus | Distancia: "); 
+  Serial.print(distancia); 
+  Serial.println(" cm"); 
 
-  digitalWrite(VermCar, LOW);
-  digitalWrite(AmarCar, LOW);
-  digitalWrite(VerdCar, HIGH);
-
-  digitalWrite(VerdPed, LOW);
-  digitalWrite(VermPed, HIGH);
-  digitalWrite(Buzzer, HIGH);
-
-  delay(4000);
-
-  digitalWrite(VerdCar, LOW);
-  digitalWrite(AmarCar, HIGH);
-
-  digitalWrite(VermPed, HIGH);
-  digitalWrite(Buzzer, HIGH);
-
-  delay(2000);
-
-  digitalWrite(AmarCar, LOW);
-  digitalWrite(VermCar, HIGH);
-
-  digitalWrite(VermPed, LOW);
-  digitalWrite(Buzzer, LOW);
-
-  digitalWrite(VerdPed, HIGH);
-
-  delay(5000);
-
-  digitalWrite(VerdPed, LOW);
-
-  for (int i = 0; i < 5; i++) {
-
-    digitalWrite(VermPed, HIGH);
-    digitalWrite(Buzzer, HIGH);
-    delay(200);
-
-    digitalWrite(VermPed, LOW);
-    digitalWrite(Buzzer, LOW);
-    delay(200);
-  }
-
+  delay(100); 
 }
